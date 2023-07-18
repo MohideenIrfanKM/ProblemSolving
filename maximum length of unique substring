@@ -1,0 +1,48 @@
+public class Solution {
+    public int LengthOfLongestSubstring(string s) {
+
+        int[] c=new int[128];
+        Array.Fill(c,0);
+        int start=0;
+        int co=0;
+        int count=0;
+
+        int t=0;
+        for(int i=0; i<s.Length;i++ )
+        {
+            if(c[s[i]]==0)
+            {
+                count++;
+                c[s[i]]++;
+            }
+            else
+            {
+                if(count>=co)
+                {
+                    start=t;
+                    co=count;
+                }
+                count++;
+                c[s[i]]++;
+                int flag=0;
+                while(flag==0)
+                {
+                    if(s[t]==s[i])
+                    flag=1;
+                    c[s[t]]--;
+                    count--;
+                    t++;
+
+                }
+            }
+
+        }
+        if(count>=co)
+                {
+                    start=t;
+                    co=count;
+                }
+                return co;
+        
+    }
+}
