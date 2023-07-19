@@ -1,0 +1,31 @@
+public class Solution {
+   		public int RemoveDuplicates(int[] nums)
+	{
+
+		int temp = nums[0];
+		int count = 1;
+		int count1 = 1;
+		int j;
+		for (int i = 1; count1 < nums.Length; i++,count1++)
+		{
+			
+			if (nums[i] == temp)
+			{
+				for (j = i; j < nums.Length - 1; j++)
+				{
+
+					nums[j] = nums[j + 1];
+				}
+				i--;
+				nums[j] = '_';
+			}
+			else
+			{
+				count++;
+				temp = nums[i];
+			}
+		}
+		return count;
+
+	}
+}
