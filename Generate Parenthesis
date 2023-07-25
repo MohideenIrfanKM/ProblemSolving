@@ -1,0 +1,31 @@
+//Generate Parenthesis Combination
+
+
+using System.Collections.Generic;
+public class Solution {
+    public IList<string> GenerateParenthesis(int n) {
+
+        IList<string> list=new List<string>();
+        recursive(n,"",0,0,list);
+        return list;
+        
+    }
+    public void recursive(int n,string res,int open,int close,IList<string> list)
+    {
+        if(res.Length==2*n)
+        {
+            list.Add(res);
+            return;
+        }
+
+        if(open<n)
+        {
+            recursive(n,res+"(",open+1,close,list);
+        }
+
+        if(open>close)
+        {
+            recursive(n,res+")",open,close+1,list);
+        }
+    }
+}
