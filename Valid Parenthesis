@@ -1,0 +1,38 @@
+using System.Collections.Generic;
+using System.Linq;
+public class Solution {
+    public bool IsValid(string s) {
+        Stack<char> stack=new Stack<char>();
+         Dictionary<char,char> obj=new Dictionary<char,char>();
+                obj.Add('(',')');
+                obj.Add('[',']');
+                obj.Add('{','}');
+        foreach(var i in s)
+        {
+            if(i=='{' || i=='['||i=='(')
+            {
+                stack.Push(i);
+            }
+            else if(i=='}'|| i==']'|| i==')')
+            {
+               
+                 if(stack.Count==0)
+                    return false;
+                if(stack.Peek()==obj.FirstOrDefault(x=>x.Value==i).Key)
+                {
+                  
+                    stack.Pop();
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                
+            }
+        }
+        return stack.Count==0;
+    }
+}
