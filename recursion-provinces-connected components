@@ -1,0 +1,32 @@
+public class Solution {
+    public static void dfs(int[][] isConnected,bool[] visited,int len,int curr)
+    {
+        visited[curr]=true;;
+        for(int i=0;i<len;i++)
+        {
+            if(curr!=i && isConnected[curr][i]==1)
+            {
+                if(!visited[i])
+                {
+                    dfs(isConnected,visited,len,i);
+                }
+            }
+        }
+    }
+    public int FindCircleNum(int[][] isConnected) {
+        bool[] visited=new bool[isConnected.GetLength(0)];
+        Array.Fill(visited,false);
+        int count=0;
+        for(int i=0;i<isConnected.GetLength(0);i++)
+        {
+            if(!visited[i])
+            {
+                count++;
+                dfs(isConnected,visited,isConnected.GetLength(0),i);
+
+            }
+        }
+        return count;
+        
+    }
+}
