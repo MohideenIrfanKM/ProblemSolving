@@ -1,0 +1,73 @@
+public class Solution {
+    public static IList<IList<int>> recursion(List<int> nums)
+    {
+        IList<IList<int>> all=new List<IList<int>>();
+        if(nums.Count==0)
+        {
+            return new List<IList<int>>(){new List<int>()};
+        }
+        for(int i=0;i<nums.Count;i++)
+        {
+            int firstelement=nums[i];
+            List<int>  remo=new List<int>(nums);
+            remo.RemoveAt(i);
+            IList<IList<int>> remaining=recursion(remo);
+            foreach(var perm in remaining)
+            {
+                IList<int> str=(List<int>)(perm);
+                str.Insert(0,firstelement);
+                all.Add(str);
+            }
+        }
+        return all;
+        
+
+    }
+    
+    public IList<IList<int>> Permute(int[] nums) {
+        List<int> num=new List<int>(nums);
+        IList<IList<int>> result=recursion(num);
+
+        return result;
+
+
+        
+    }
+}
+
+// using System;
+// using System.Collections.Generic;
+
+// public class Solution {
+//     public IList<IList<int>> Recursion(List<int> nums)
+//     {
+//         IList<IList<int>> all = new List<IList<int>>();
+//         if (nums.Count == 0)
+//         {
+//             return new List<IList<int>>() { new List<int>() };
+//         }
+//         for (int i = 0; i < nums.Count; i++)
+//         {
+//             int firstElement = nums[i];
+            
+//             // Create a new list without the element at index i
+//             List<int> remainingNums = new List<int>(nums);
+//             remainingNums.RemoveAt(i);
+            
+//             IList<IList<int>> remaining = Recursion(remainingNums);
+//             foreach (var perm in remaining)
+//             {
+//                 List<int> str = new List<int>(perm);
+//                 str.Insert(0, firstElement);
+//                 all.Add(str);
+//             }
+//         }
+//         return all;
+//     }
+    
+//     public IList<IList<int>> Permute(int[] nums) {
+//         List<int> num = new List<int>(nums);
+//         IList<IList<int>> result = Recursion(num);
+//         return result;
+//     }
+// }
