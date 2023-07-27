@@ -1,0 +1,69 @@
+public class Solution {
+    public IList<IList<int>> PermuteUnique(int[] nums) {
+        IList<IList<int>> result = new List<IList<int>>();
+        Array.Sort(nums); // Sort the input array to handle duplicate elements
+        List<int> permutation = new List<int>();
+        bool[] used = new bool[nums.Length];
+
+        PermuteHelper(nums, permutation, used, result);
+
+        return result;
+    }
+
+    private void PermuteHelper(int[] nums, List<int> permutation, bool[] used, IList<IList<int>> result) {
+        if (permutation.Count == nums.Length) {
+            result.Add(new List<int>(permutation));
+            return;
+        }
+
+        for (int i = 0; i < nums.Length; i++) {
+            if (used[i] || (i > 0 && nums[i] == nums[i - 1] && used[i - 1])) {
+                continue;
+            }
+
+            permutation.Add(nums[i]);
+            used[i] = true;
+
+            PermuteHelper(nums, permutation, used, result);
+
+            permutation.RemoveAt(permutation.Count - 1);
+            used[i] = false;
+        }
+}
+}
+// using System;
+// using System.Collections.Generic;
+
+// public class Solution {
+//     public IList<IList<int>> Recursion(List<int> nums)
+//     {
+//         IList<IList<int>> all = new List<IList<int>>();
+//         if (nums.Count == 0)
+//         {
+//             return new List<IList<int>>() { new List<int>() };
+//         }
+//         for (int i = 0; i < nums.Count; i++)
+//         {
+//             int firstElement = nums[i];
+            
+//             // Create a new list without the element at index i
+//             List<int> remainingNums = new List<int>(nums);
+//             remainingNums.RemoveAt(i);
+            
+//             IList<IList<int>> remaining = Recursion(remainingNums);
+//             foreach (var perm in remaining)
+//             {
+//                 List<int> str = new List<int>(perm);
+//                 str.Insert(0, firstElement);
+//                 all.Add(str);
+//             }
+//         }
+//         return all;
+//     }
+    
+//     public IList<IList<int>> Permute(int[] nums) {
+//         List<int> num = new List<int>(nums);
+//         IList<IList<int>> result = Recursion(num);
+//         return result;
+//     }
+// }
