@@ -1,0 +1,78 @@
+public class Solution {
+    //logic to find the next permutation
+    //find longest non increasing suffix
+    //take first prefix of that suffix as pivot element
+    //interchange the suffix with next immediate
+    //reverse the suffix
+    public static void prints(int[] nums)
+    {
+         Console.Write("[");
+        for(int i=0;i<nums.Length;i++)
+        {
+            Console.Write(nums[i]);
+            if(i!=nums.Length-1)
+            Console.Write(",");
+
+        }
+        Console.Write("]");
+    }
+    public static void swap(int[] nums,int one,int two)
+    {
+        int temp=nums[one];
+        nums[one]=nums[two];
+        nums[two]=temp;
+    }
+    public static void Reverse(int[] nums,int substart)
+    {
+        int end=nums.Length-1;
+        while(end>substart)
+        {
+            swap(nums,substart,end);
+            substart++;
+            end--;
+        }
+    }
+    public void NextPermutation(int[] nums) {
+        int substart=nums.Length-1;
+
+
+        for(int i=nums.Length-2;i>=0;i--)
+        {
+            
+            if(nums[i]>=nums[substart])
+            {
+             
+                substart=i;
+            }
+            else
+            {
+                break;
+            }
+        }
+        if(nums.Length==1)
+        prints(nums);
+        else if(substart==0 && nums[0]>=nums[1])
+        {
+            Reverse(nums,0);
+            prints(nums);
+        }
+        
+        else
+        {
+            int pivot=substart-1;
+        int temp=pivot+1;
+        for(int i=substart+1;i<nums.Length;i++)
+        {
+            if(nums[i]>nums[pivot] && nums[i]<=nums[temp])
+            {
+                temp=i;
+            }
+        }
+        swap(nums,pivot,temp);
+        Reverse(nums,substart);
+        prints(nums);
+        }
+        
+        
+    }
+}
