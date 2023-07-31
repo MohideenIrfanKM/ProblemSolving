@@ -1,0 +1,33 @@
+public class Solution {
+    public static int min(int a,int b)
+    {
+     return (a>b)?b:a;
+    }
+    public int Trap(int[] height) {
+        int n=height.Length;
+        int count=0;
+        int[] maxleft=new int[n];
+        int[] maxright=new int[n];
+        int lmax=0;
+        int rmax=0;
+        int temp;
+        for(int i=0;i<n;i++)
+        {
+            maxleft[i]=lmax;
+            if(height[i]>=lmax)
+            lmax=height[i];
+
+            maxright[n-i-1]=rmax;
+            if(height[n-i-1]>=rmax)
+            rmax = height[n-i-1];
+        }
+        for(int i=0;i<n;i++)
+        {
+            temp = min(maxleft[i], maxright[i]);
+			temp = temp - height[i];
+			temp= (temp < 0) ? 0 : temp;
+			count = count + temp;
+        }
+        return count;
+    }
+}
